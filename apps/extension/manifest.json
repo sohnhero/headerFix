@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "ServiceNow Platform Analytics Export Fixer",
+  "version": "1.0.0",
+  "description": "Automatically captures missing Pivot labels from ServiceNow exports to fix empty headers in Excel.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.ts"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/injected.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
