@@ -32,8 +32,12 @@ function App() {
   };
 
   const handleOpenWeb = () => {
-    // Open the local dev server or prod web app with data in URL hash
-    let url = 'http://localhost:5173/dashboard';
+    // Open the local dev server or prod web app based on environment
+    const baseUrl = import.meta.env.DEV 
+      ? 'http://localhost:5173/dashboard' 
+      : 'https://header-fix-extension.vercel.app/dashboard';
+      
+    let url = baseUrl;
     if (data && data.labels) {
        const encoded = encodeURIComponent(JSON.stringify(data.labels));
        url += `#data=${encoded}`;
